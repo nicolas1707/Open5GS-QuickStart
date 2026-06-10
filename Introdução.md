@@ -65,7 +65,7 @@ Principais componentes:
 - SGW
 - PGW
 
----
+
 
 ## 5G NSA (Non-Standalone)
 
@@ -84,7 +84,7 @@ Características:
 - Utiliza EPC do 4G
 - Facilita a migração para 5G
 
----
+
 
 ## 5G SA (Standalone)
 
@@ -128,7 +128,7 @@ Exemplos:
 - Gerenciamento de sessões
 - Aplicação de políticas
 
----
+
 
 ## User Plane
 
@@ -140,6 +140,23 @@ Exemplos:
 - Streaming
 - Downloads
 - Aplicativos
+
+O Open5GS implementa CUPS (Control and User Plane Separation).
+
+CUPS significa:
+
+```text
+Control Plane
+      ≠
+User Plane
+```
+
+Benefícios:
+
+- Escalabilidade
+- Menor latência
+- Distribuição geográfica dos gateways
+- Edge Computing
 
 ---
 
@@ -164,7 +181,7 @@ eNB
 MME
 ```
 
----
+
 
 ## HSS (Home Subscriber Server)
 
@@ -184,7 +201,7 @@ MME
 HSS
 ```
 
----
+
 
 ## PCRF (Policy and Charging Rules Function)
 
@@ -197,7 +214,7 @@ Responsabilidades:
 - Priorização de tráfego
 - Regras de cobrança
 
----
+
 
 ## SGWC (Serving Gateway Control)
 
@@ -210,7 +227,7 @@ Funções:
 
 Não transporta tráfego.
 
----
+
 
 ## SGWU (Serving Gateway User)
 
@@ -223,7 +240,7 @@ eNB
 SGWU
 ```
 
----
+
 
 ## PGWC (Packet Gateway Control)
 
@@ -235,7 +252,7 @@ Funções:
 - Atribuição de IP
 - Gerenciamento de rotas
 
----
+
 
 ## PGWU (Packet Gateway User)
 
@@ -259,51 +276,14 @@ Internet
 
 ---
 
-# CUPS (Control and User Plane Separation)
-
-O Open5GS implementa CUPS.
-
-CUPS significa:
-
-```text
-Control Plane
-      ≠
-User Plane
-```
-
-Separação entre:
-
-## Controle
-
-- MME
-- HSS
-- PCRF
-- SGWC
-- PGWC
-
-## Dados
-
-- SGWU
-- PGWU
-
-Benefícios:
-
-- Escalabilidade
-- Menor latência
-- Distribuição geográfica dos gateways
-- Edge Computing
-
----
-
 # Arquitetura 5G Core
 
 O 5G Core utiliza SBA (Service Based Architecture).
 
 Em vez de conexões fixas, os elementos descobrem serviços dinamicamente.
 
----
 
-# NRF (Network Repository Function)
+## NRF (Network Repository Function)
 
 Catálogo de serviços da rede.
 
@@ -325,9 +305,8 @@ Função:
 - Descoberta de serviços
 - Registro de funções da rede
 
----
 
-# AMF (Access and Mobility Management Function)
+## AMF (Access and Mobility Management Function)
 
 Equivalente ao MME do LTE.
 
@@ -344,9 +323,8 @@ gNB
 AMF
 ```
 
----
 
-# AUSF (Authentication Server Function)
+## AUSF (Authentication Server Function)
 
 Responsável pela autenticação.
 
@@ -355,9 +333,8 @@ Funções:
 - Verificação das credenciais
 - Validação do SIM
 
----
 
-# UDM (Unified Data Management)
+## UDM (Unified Data Management)
 
 Equivalente ao HSS.
 
@@ -367,9 +344,8 @@ Armazena:
 - Perfis
 - Informações de autenticação
 
----
 
-# UDR (Unified Data Repository)
+## UDR (Unified Data Repository)
 
 Banco de dados do 5G Core.
 
@@ -379,9 +355,8 @@ Armazena permanentemente:
 - Políticas
 - Configurações
 
----
 
-# SMF (Session Management Function)
+## SMF (Session Management Function)
 
 Responsável pelas sessões de dados.
 
@@ -391,9 +366,8 @@ Funções:
 - Atribuição de IP
 - Configuração do UPF
 
----
 
-# UPF (User Plane Function)
+## UPF (User Plane Function)
 
 Elemento responsável pelo tráfego de usuário.
 
@@ -413,9 +387,8 @@ Funções:
 - Aplicação de regras de tráfego
 - Interligação com redes externas
 
----
 
-# PCF (Policy Control Function)
+## PCF (Policy Control Function)
 
 Equivalente ao PCRF do LTE.
 
@@ -424,10 +397,9 @@ Responsabilidades:
 - QoS
 - Políticas de tráfego
 - Controle de uso
+  
 
----
-
-# NSSF (Network Slice Selection Function)
+## NSSF (Network Slice Selection Function)
 
 Responsável pela seleção de Network Slices.
 
@@ -441,9 +413,8 @@ Slice Industrial
 
 Permite que diferentes serviços utilizem redes lógicas independentes.
 
----
 
-# Fluxo Completo de Registro no 5G SA
+## Fluxo Completo de Registro no 5G SA
 
 ```text
 UE
@@ -500,7 +471,6 @@ AMF
 | PGWC | Controle do PGW |
 | PGWU | Saída para Internet |
 
----
 
 ## 5G Core
 
