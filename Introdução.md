@@ -310,13 +310,17 @@ Função:
 
 ## AMF (Access and Mobility Management Function)
 
-Equivalente ao MME do LTE.
+O AMF é o principal ponto de entrada do usuário no 5G Core.
 
-Responsabilidades:
+Toda comunicação de controle proveniente do gNB chega inicialmente ao AMF. Ele é responsável por gerenciar o acesso do dispositivo à rede, controlar sua mobilidade e coordenar as demais funções do núcleo.
 
-- Registro do usuário
-- Mobilidade
-- Gerenciamento de acesso
+Principais responsabilidades:
+
+- Registro do UE na rede (Registration Procedure)
+- Gerenciamento de mobilidade
+- Gerenciamento de contexto do usuário
+- Encaminhamento de mensagens NAS (Armazenamento Conectado à Rede)
+- Seleção das funções necessárias para autenticação e criação de sessões
 
 ```text
 gNB
@@ -328,17 +332,35 @@ AMF
 
 ## AUSF (Authentication Server Function)
 
-Responsável pela autenticação.
+O AUSF é responsável por autenticar os usuários da rede.
+
+Quando um dispositivo tenta se registrar, o AMF solicita ao AUSF que valide as credenciais do assinante.
+
+O AUSF executa os procedimentos de autenticação definidos pelo padrão 5G.
 
 Funções:
 
 - Verificação das credenciais
 - Validação do SIM
 
+```text
+AMF
+ │
+ ▼
+AUSF
+ │
+ ▼
+UDM
+```
+
 
 ## UDM (Unified Data Management)
 
-Equivalente ao HSS.
+O UDM é responsável por gerenciar as informações dos assinantes.
+
+Ele fornece dados necessários para autenticação, autorização e utilização dos serviços da rede.
+
+O UDM não é um banco de dados; ele atua como uma camada lógica que acessa os dados armazenados no UDR.
 
 Armazena:
 
@@ -349,29 +371,52 @@ Armazena:
 
 ## UDR (Unified Data Repository)
 
-Banco de dados do 5G Core.
+O UDR é o banco de dados central do 5G Core.
 
-Armazena permanentemente:
+Ele armazena permanentemente as informações utilizadas pelas demais funções da rede.
+
+Armazena:
 
 - Assinantes
 - Políticas
 - Configurações
 
+```text
+UDM
+ │
+ ▼
+UDR
+```
+
 
 ## SMF (Session Management Function)
 
-Responsável pelas sessões de dados.
+O SMF é responsável pelo gerenciamento das sessões de dados dos usuários.
+
+Quando um dispositivo solicita acesso à Internet, o SMF cria uma **PDU Session**, define os parâmetros necessários e seleciona o UPF que será utilizado para transportar os dados.
 
 Funções:
 
-- Criação de sessões PDU
+- Criação de sessões PDU (responsável por transportar dados entre o dispositivo (celular, modem, IoT) e a rede de dados externa)
 - Atribuição de IP
 - Configuração do UPF
+
+```text
+AMF
+ │
+ ▼
+SMF
+ │
+ ▼
+UPF
+```
 
 
 ## UPF (User Plane Function)
 
-Elemento responsável pelo tráfego de usuário.
+O UPF é o principal elemento do plano de usuário (User Plane).
+
+Todo o tráfego gerado pelos dispositivos passa pelo UPF antes de chegar à Internet ou a redes externas.
 
 ```text
 gNB
@@ -392,18 +437,33 @@ Funções:
 
 ## PCF (Policy Control Function)
 
-Equivalente ao PCRF do LTE.
+O PCF é responsável pela definição das políticas da rede.
+
+Ele determina quais regras devem ser aplicadas para cada usuário ou serviço.
+
+O PCF fornece essas informações ao SMF, que as aplica durante a criação das sessões.
 
 Responsabilidades:
 
 - QoS
 - Políticas de tráfego
 - Controle de uso
+
+```text
+PCF
+ │
+ ▼
+SMF
+```
   
 
 ## NSSF (Network Slice Selection Function)
 
-Responsável pela seleção de Network Slices.
+O NSSF é responsável por selecionar a Network Slice adequada para cada usuário ou serviço.
+
+Uma Slice representa uma rede lógica independente criada sobre a mesma infraestrutura física.
+
+Permite que diferentes serviços utilizem redes lógicas independentes.
 
 Exemplo:
 
@@ -413,10 +473,21 @@ Slice Vídeo
 Slice Industrial
 ```
 
-Permite que diferentes serviços utilizem redes lógicas independentes.
+```text
+UE
+ │
+ ▼
+AMF
+ │
+ ▼
+NSSF
+```
 
+---
 
-## Fluxo Completo de Registro no 5G SA
+# Fluxo Completo de Registro no 5G SA
+
+## 1. Registro Inicial
 
 ```text
 UE
@@ -426,21 +497,76 @@ gNB
  │
  ▼
 AMF
- │
- ├── AUSF (Autenticação)
- │
- ├── UDM/UDR (Dados do usuário)
- │
- ├── NSSF (Seleção de Slice)
- │
- └── SMF
-         │
-         ▼
-        UPF
-         │
-         ▼
-     Internet
 ```
+
+O dispositivo solicita acesso à rede.
+
+---
+
+## 2. Autenticação
+
+```text
+AMF
+ │
+ ▼
+AUSF
+ │
+ ▼
+UDM
+ │
+ ▼
+UDR
+```
+
+As credenciais do assinante são verificadas.
+
+---
+
+## 3. Seleção da Slice
+
+```text
+AMF
+ │
+ ▼
+NSSF
+```
+
+A slice apropriada é selecionada.
+
+---
+
+## 4. Criação da Sessão
+
+```text
+AMF
+ │
+ ▼
+SMF
+ │
+ ▼
+UPF
+```
+
+A PDU Session é criada.
+
+---
+
+## 5. Acesso à Internet
+
+```text
+UE
+ │
+ ▼
+gNB
+ │
+ ▼
+UPF
+ │
+ ▼
+Internet
+```
+
+O tráfego do usuário passa pelo UPF e segue para a rede externa.
 
 ---
 
@@ -476,17 +602,20 @@ AMF
 
 ## 5G Core
 
-| Função | Responsabilidade |
+| Função | Objetivo Principal |
 |----------|----------|
-| NRF | Descoberta de serviços |
-| AMF | Mobilidade e acesso |
-| AUSF | Autenticação |
-| UDM | Dados do assinante |
-| UDR | Banco de dados |
-| SMF | Sessões |
-| UPF | Tráfego de usuário |
-| PCF | Políticas |
-| NSSF | Seleção de Slice |
+| NRF | Registro e descoberta de serviços |
+| AMF | Controle de acesso e mobilidade |
+| AUSF | Autenticação do usuário |
+| UDM | Gerenciamento dos dados do assinante |
+| UDR | Armazenamento persistente dos dados |
+| SMF | Gerenciamento das sessões PDU |
+| UPF | Transporte do tráfego de usuário |
+| PCF | Definição de políticas e QoS |
+| NSSF | Seleção de Network Slices |
+
+Tudo que toma decisões está no Control Plane; tudo que transporta pacotes está no User Plane.
+No Open5GS 5G SA, o UPF é a única Network Function do 5G Core pertencente ao User Plane.
 
 ---
 
