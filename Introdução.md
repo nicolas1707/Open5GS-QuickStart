@@ -114,7 +114,25 @@ Características:
 
 # Separação de Planos
 
-O núcleo é dividido em dois planos:
+## CUPS (Control and User Plane Separation).
+
+O Open5GS implementa CUPS.
+
+CUPS significa:
+
+```text
+Control Plane
+      ≠
+User Plane
+```
+
+Benefícios:
+
+- Escalabilidade
+- Menor latência
+- Distribuição geográfica dos gateways
+- Edge Computing
+  
 
 ## Control Plane
 
@@ -141,22 +159,6 @@ Exemplos:
 - Downloads
 - Aplicativos
 
-O Open5GS implementa CUPS (Control and User Plane Separation).
-
-CUPS significa:
-
-```text
-Control Plane
-      ≠
-User Plane
-```
-
-Benefícios:
-
-- Escalabilidade
-- Menor latência
-- Distribuição geográfica dos gateways
-- Edge Computing
 
 ---
 
