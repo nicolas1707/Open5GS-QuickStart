@@ -287,9 +287,11 @@ Em vez de conexões fixas, os elementos descobrem serviços dinamicamente.
 
 ## NRF (Network Repository Function)
 
-Catálogo de serviços da rede.
+O NRF funciona como um catálogo central de serviços do 5G Core.
 
-Todos os elementos registram-se nele.
+Sempre que uma função da rede é iniciada, ela registra suas informações no NRF. Quando uma função precisa se comunicar com outra, consulta o NRF para descobrir onde o serviço está disponível.
+
+Sem o NRF, as funções precisariam conhecer previamente os endereços umas das outras.
 
 ```text
 AMF
@@ -302,10 +304,24 @@ PCF
 NRF
 ```
 
-Função:
+Principais responsabilidades:
 
-- Descoberta de serviços
-- Registro de funções da rede
+- Registro das funções da rede
+- Descoberta dinâmica de serviços
+- Disponibilização das informações das NFs
+- Controle de disponibilidade dos serviços
+
+Exemplo:
+
+```text
+AMF
+ │
+ ▼
+NRF
+ │
+ ▼
+Descobre o AUSF
+```
 
 
 ## AMF (Access and Mobility Management Function)
@@ -316,11 +332,19 @@ Toda comunicação de controle proveniente do gNB chega inicialmente ao AMF. Ele
 
 Principais responsabilidades:
 
-- Registro do UE na rede (Registration Procedure)
+- Registro do usuário na rede
 - Gerenciamento de mobilidade
-- Gerenciamento de contexto do usuário
-- Encaminhamento de mensagens NAS (Armazenamento Conectado à Rede)
-- Seleção das funções necessárias para autenticação e criação de sessões
+- Gerenciamento do contexto do usuário
+- Encaminhamento de mensagens NAS
+- Coordenação do processo de autenticação
+- Seleção de funções necessárias para o serviço
+
+Durante o registro do usuário, o AMF interage com:
+
+- AUSF
+- UDM
+- NSSF
+- SMF
 
 ```text
 gNB
@@ -338,10 +362,44 @@ Quando um dispositivo tenta se registrar, o AMF solicita ao AUSF que valide as c
 
 O AUSF executa os procedimentos de autenticação definidos pelo padrão 5G.
 
-Funções:
+Principais responsabilidades:
 
-- Verificação das credenciais
-- Validação do SIM
+- Autenticação do assinante
+- Validação das credenciais
+- Geração dos vetores de autenticação
+- Proteção contra acessos não autorizados
+
+Se a autenticação falhar, o dispositivo não consegue acessar a rede.
+
+```text
+AMF
+ │
+ ▼
+AUSF
+```
+
+
+## UDM (Unified Data Management)
+
+O UDM é responsável por gerenciar as informações dos assinantes.
+
+Ele fornece dados necessários para autenticação, autorização e utilização dos serviços da rede.
+
+O UDM não é um banco de dados; ele atua como uma camada lógica que acessa os dados armazenados no UDR.
+
+Principais responsabilidades:
+
+- Gerenciamento dos perfis dos assinantes
+- Fornecimento de dados para autenticação
+- Gerenciamento de políticas associadas ao usuário
+- Controle das permissões de acesso
+
+Informações gerenciadas:
+
+- IMSI/SUPI
+- Chaves de autenticação
+- Dados de assinatura
+- Configurações de serviço
 
 ```text
 AMF
@@ -354,32 +412,26 @@ UDM
 ```
 
 
-## UDM (Unified Data Management)
-
-O UDM é responsável por gerenciar as informações dos assinantes.
-
-Ele fornece dados necessários para autenticação, autorização e utilização dos serviços da rede.
-
-O UDM não é um banco de dados; ele atua como uma camada lógica que acessa os dados armazenados no UDR.
-
-Armazena:
-
-- Dados do assinante
-- Perfis
-- Informações de autenticação
-
-
 ## UDR (Unified Data Repository)
 
 O UDR é o banco de dados central do 5G Core.
 
 Ele armazena permanentemente as informações utilizadas pelas demais funções da rede.
 
-Armazena:
+Principais responsabilidades:
 
-- Assinantes
-- Políticas
-- Configurações
+- Armazenamento dos dados dos assinantes
+- Armazenamento de políticas
+- Armazenamento de configurações da rede
+- Persistência das informações do sistema
+
+Exemplos de dados armazenados:
+
+- SUPI
+- Chaves de autenticação
+- Perfis de serviço
+- Dados de Network Slicing
+- Informações de QoS
 
 ```text
 UDM
@@ -395,11 +447,16 @@ O SMF é responsável pelo gerenciamento das sessões de dados dos usuários.
 
 Quando um dispositivo solicita acesso à Internet, o SMF cria uma **PDU Session**, define os parâmetros necessários e seleciona o UPF que será utilizado para transportar os dados.
 
-Funções:
+Principais responsabilidades:
 
-- Criação de sessões PDU (responsável por transportar dados entre o dispositivo (celular, modem, IoT) e a rede de dados externa)
-- Atribuição de IP
-- Configuração do UPF
+- Criação de sessões PDU
+- Encerramento de sessões
+- Atribuição de endereço IP
+- Seleção do UPF
+- Configuração de túneis de dados
+- Gerenciamento de roteamento
+
+O SMF controla a forma como os dados serão transportados, mas não transporta os pacotes diretamente.
 
 ```text
 AMF
@@ -418,6 +475,23 @@ O UPF é o principal elemento do plano de usuário (User Plane).
 
 Todo o tráfego gerado pelos dispositivos passa pelo UPF antes de chegar à Internet ou a redes externas.
 
+Principais responsabilidades:
+
+- Encaminhamento de pacotes
+- Aplicação de regras de tráfego
+- Interconexão com redes externas
+- Implementação de QoS
+- Medição de tráfego
+
+O UPF é o componente que efetivamente transporta os dados do usuário.
+
+Exemplos de tráfego:
+
+- Navegação Web
+- Streaming
+- Jogos Online
+- Aplicações IoT
+
 ```text
 gNB
  │
@@ -428,12 +502,6 @@ UPF
 Internet
 ```
 
-Funções:
-
-- Encaminhamento de pacotes
-- Aplicação de regras de tráfego
-- Interligação com redes externas
-
 
 ## PCF (Policy Control Function)
 
@@ -443,11 +511,18 @@ Ele determina quais regras devem ser aplicadas para cada usuário ou serviço.
 
 O PCF fornece essas informações ao SMF, que as aplica durante a criação das sessões.
 
-Responsabilidades:
+Principais responsabilidades:
 
-- QoS
-- Políticas de tráfego
-- Controle de uso
+- Controle de QoS
+- Priorização de tráfego
+- Definição de políticas de uso
+- Controle de recursos da rede
+
+Exemplos:
+
+- Limitação de banda
+- Priorização de aplicações críticas
+- Configuração de latência diferenciada
 
 ```text
 PCF
@@ -464,6 +539,19 @@ O NSSF é responsável por selecionar a Network Slice adequada para cada usuári
 Uma Slice representa uma rede lógica independente criada sobre a mesma infraestrutura física.
 
 Permite que diferentes serviços utilizem redes lógicas independentes.
+
+Principais responsabilidades:
+
+- Seleção de slices
+- Associação de usuários às slices
+- Gerenciamento de recursos por slice
+- Suporte a múltiplos serviços simultâneos
+
+Benefícios:
+
+- Isolamento de serviços
+- Melhor utilização dos recursos
+- Diferentes requisitos de QoS
 
 Exemplo:
 
@@ -614,7 +702,8 @@ O tráfego do usuário passa pelo UPF e segue para a rede externa.
 | PCF | Definição de políticas e QoS |
 | NSSF | Seleção de Network Slices |
 
-Tudo que toma decisões está no Control Plane; tudo que transporta pacotes está no User Plane.
+Tudo que toma decisões está no Control Plane, tudo que transporta pacotes está no User Plane.
+
 No Open5GS 5G SA, o UPF é a única Network Function do 5G Core pertencente ao User Plane.
 
 ---
