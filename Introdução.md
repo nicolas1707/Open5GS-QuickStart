@@ -486,7 +486,7 @@ AMF
 
 ---
 
-# Resumo para Memorizar
+# Resumo
 
 ## EPC (4G)
 
