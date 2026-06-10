@@ -114,7 +114,7 @@ Características:
 
 # Separação de Planos
 
-## CUPS (Control and User Plane Separation).
+## CUPS (Control and User Plane Separation)
 
 O Open5GS implementa CUPS.
 
