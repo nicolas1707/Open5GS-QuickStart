@@ -1,4 +1,4 @@
-# Open5GS – Arquitetura (Item 1 do Quickstart)
+# Open5GS – Introdução ao Software
 
 ## O que é o Open5GS?
 
