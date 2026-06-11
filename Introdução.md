@@ -658,21 +658,6 @@ O tráfego do usuário passa pelo UPF e segue para a rede externa.
 
 ---
 
-# Tabela Comparativa LTE x 5G
-
-| LTE (EPC) | 5G Core |
-|------------|------------|
-| MME | AMF |
-| HSS | UDM |
-| HSS Database | UDR |
-| PCRF | PCF |
-| SGW/PGW Control | SMF |
-| SGW/PGW User | UPF |
-| Não possui NRF | NRF |
-| Não possui NSSF | NSSF |
-
----
-
 # Resumo
 
 ## EPC (4G)
