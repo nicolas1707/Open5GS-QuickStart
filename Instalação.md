@@ -286,9 +286,9 @@ Permite visualizar rapidamente quais funções foram instaladas e seu estado atu
 
 ---
 
-# Problemas de conexão pós instalação
+# Problemas de conexão após a instalação
 
-Caso haja algum problema de conexão pós instalação, isso pode ser facilmente resolvível reiniciando o Open5GS.
+Caso haja algum problema de conexão após a instalação, isso pode ser facilmente resolvível reiniciando o Open5GS.
 
 Comando para desativar o Open5GS:
 
@@ -301,14 +301,6 @@ Comando para ativar o Open5GS:
 ```bash
 sudo systemctl start open5gs-*
 ```
-
-### O que este comando faz?
-
-Lista todos os serviços Open5GS registrados no systemd.
-
-### Impacto no processo
-
-Permite visualizar rapidamente quais funções foram instaladas e seu estado atual.
 
 ---
 
