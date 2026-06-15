@@ -280,10 +280,6 @@ systemctl | grep open5gs
 
 Lista todos os serviços Open5GS registrados no systemd.
 
-### Impacto no processo
-
-Permite visualizar rapidamente quais funções foram instaladas e seu estado atual.
-
 ---
 
 # Problemas de conexão após a instalação
