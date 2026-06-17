@@ -464,13 +464,13 @@ Principais responsabilidades:
 O SMF controla a forma como os dados serão transportados, mas não transporta os pacotes diretamente.
 
 ```text
-AMF/UDM
-   │
-   ▼
-  SMF
-   │
-   ▼
-  UPF
+AMF
+ │
+ ▼
+SMF ──► UDM (consulta)
+ │
+ ▼
+UPF
 ```
 
 
