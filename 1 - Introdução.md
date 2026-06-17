@@ -294,14 +294,17 @@ Sempre que uma função da rede é iniciada, ela registra suas informações no 
 Sem o NRF, as funções precisariam conhecer previamente os endereços umas das outras.
 
 ```text
-AMF
-SMF
-UDM
-AUSF
-PCF
- │
- ▼
-NRF
+Registro:
+AMF, SMF, UDM, AUSF, PCF
+        │
+        ▼
+       NRF
+
+Descoberta:
+       NRF
+        │
+        ▼
+AMF, SMF, UDM, AUSF, PCF
 ```
 
 Principais responsabilidades:
@@ -434,10 +437,10 @@ Exemplos de dados armazenados:
 - Informações de QoS
 
 ```text
-UDM
- │
- ▼
-UDR
+UDM/PCF
+   │
+   ▼
+  UDR
 ```
 
 
@@ -446,6 +449,8 @@ UDR
 O SMF é responsável pelo gerenciamento das sessões de dados dos usuários.
 
 Quando um dispositivo solicita acesso à Internet, o SMF cria uma **PDU Session**, define os parâmetros necessários e seleciona o UPF que será utilizado para transportar os dados.
+
+Para isso, o SMF consulta o UDM, obtendo os dados de assinatura relacionados ao gerenciamento de sessão (Session Management Subscription Data), como DNN, parâmetros de QoS padrão e demais informações da PDU Session associadas ao usuário.
 
 Principais responsabilidades:
 
@@ -459,13 +464,13 @@ Principais responsabilidades:
 O SMF controla a forma como os dados serão transportados, mas não transporta os pacotes diretamente.
 
 ```text
-AMF
- │
- ▼
-SMF
- │
- ▼
-UPF
+  AMF
+   │
+   ▼
+  SMF
+   │
+   ▼
+UPF/UDM
 ```
 
 
@@ -511,6 +516,8 @@ Ele determina quais regras devem ser aplicadas para cada usuário ou serviço.
 
 O PCF fornece essas informações ao SMF, que as aplica durante a criação das sessões.
 
+Para definir essas políticas, o PCF consulta o UDR, de onde obtém os dados de assinatura relacionados a políticas (Policy Data) armazenados para cada usuário.
+
 Principais responsabilidades:
 
 - Controle de QoS
@@ -525,10 +532,10 @@ Exemplos:
 - Configuração de latência diferenciada
 
 ```text
-PCF
- │
- ▼
-SMF
+  PCF
+   │
+   ▼
+SMF/UDR
 ```
   
 
