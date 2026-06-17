@@ -464,13 +464,13 @@ Principais responsabilidades:
 O SMF controla a forma como os dados serão transportados, mas não transporta os pacotes diretamente.
 
 ```text
-  AMF
+AMF/UDM
    │
    ▼
   SMF
    │
    ▼
-UPF/UDM
+  UPF
 ```
 
 
@@ -532,10 +532,13 @@ Exemplos:
 - Configuração de latência diferenciada
 
 ```text
-  PCF
-   │
-   ▼
-SMF/UDR
+UDR
+ │
+ ▼
+PCF
+ │
+ ▼
+SMF
 ```
   
 
