@@ -421,6 +421,10 @@ O UDR é o banco de dados central do 5G Core.
 
 Ele armazena permanentemente as informações utilizadas pelas demais funções da rede.
 
+Tanto o UDM quanto o PCF consultam o UDR para obter os dados necessários às suas respectivas funções: o UDM busca dados de assinatura relacionados à autenticação e ao perfil do usuário, enquanto o PCF busca dados de assinatura relacionados a políticas (Policy Data).
+
+O UDR não toma decisões nem aplica regras; ele apenas armazena e fornece os dados quando consultado.
+
 Principais responsabilidades:
 
 - Armazenamento dos dados dos assinantes
@@ -437,10 +441,10 @@ Exemplos de dados armazenados:
 - Informações de QoS
 
 ```text
-UDM/PCF
+  UDR
    │
    ▼
-  UDR
+UDM/PCF
 ```
 
 
