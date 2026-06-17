@@ -440,13 +440,6 @@ Exemplos de dados armazenados:
 - Dados de Network Slicing
 - Informações de QoS
 
-```text
-  UDR
-   │
-   ▼
-UDM/PCF
-```
-
 
 ## SMF (Session Management Function)
 
@@ -536,9 +529,6 @@ Exemplos:
 - Configuração de latência diferenciada
 
 ```text
-UDR
- │
- ▼
 PCF
  │
  ▼
