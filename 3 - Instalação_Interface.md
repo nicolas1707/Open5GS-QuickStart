@@ -219,10 +219,16 @@ Verifica se o serviço da WebUI está em execução.
 
 # Acesso à Interface
 
-Após a instalação, a WebUI pode ser acessada através do navegador.
+Após a instalação, a WebUI pode ser acessada através do navegador utilizando o seguinte endereço:
 
 ```text
 http://localhost:9999
+```
+E, utilizando as seguintes credenciais:
+
+```text
+Username : admin
+Password : 1423
 ```
 
 ### Função da Interface
