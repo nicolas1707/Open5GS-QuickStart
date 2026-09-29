@@ -232,7 +232,7 @@ Indica que a autenticação 5G-AKA foi concluída.
 PDU Session establishment is successful
 ```
 
-Indica que o SMF autorizou a criação da sessão de dados.
+Esta mensagem aparecerá três vezes. Indica que o SMF autorizou a criação simultânea das três sessões de dados solicitadas pelo UE (internet, emergency e iot).
 
 
 
@@ -260,22 +260,24 @@ Lista todas as interfaces de rede presentes no sistema.
 
 ### Impacto no processo
 
-Deve existir pelo menos uma interface semelhante a:
+Devido à configuração paralela de fatias, devem existir três interfaces semelhantes a:
 
 ```text
 uesimtun0
+uesimtun1
+uesimtun2
 ```
 
-Essa interface representa a conexão IP do UE com o núcleo 5G. 
+Estas interfaces representam as ligações IP do UE com o núcleo 5G, separadas por APN/Slice.
 
 ---
 
 # 7. Verificação do Endereço IP
 
-Execute:
+Verifique os endereços atribuídos a todas as interfaces de túnel:
 
 ```bash
-ip addr show uesimtun0
+ip addr | grep uesimtun
 ```
 
 ### O que este comando faz?
@@ -284,10 +286,14 @@ Mostra o endereço IP atribuído ao UE.
 
 ### Impacto no processo
 
-Espera-se um endereço semelhante a:
+Espera-se que cada interface receba um IP fixo atribuído pelo UPF:
 
 ```text
-10.45.0.x
+uesimtun0 (eMBB): 10.45.0.5
+
+uesimtun1 (URLLC): 10.45.0.6
+
+uesimtun2 (mMTC): 10.45.0.7
 ```
 
 Esse endereço foi atribuído pelo **SMF**, sendo utilizado posteriormente pelo **UPF** para encaminhar o tráfego da sessão PDU.
@@ -337,12 +343,12 @@ Esse endereço foi atribuído pelo **SMF**, sendo utilizado posteriormente pelo 
 
 A etapa é considerada concluída com sucesso quando todos os itens abaixo forem atendidos:
 
-- ✅ Open5GS em execução;
-- ✅ gNodeB conectado ao AMF (NG Setup Successful);
-- ✅ UE registrando-se com sucesso;
-- ✅ Autenticação 5G-AKA concluída;
-- ✅ PDU Session estabelecida;
-- ✅ Interface `uesimtun0` criada;
-- ✅ Endereço IP atribuído ao UE.
+- Open5GS em execução;
+- gNodeB conectado ao AMF (NG Setup Successful);
+- UE registrando-se com sucesso;
+- Autenticação 5G-AKA concluída;
+- PDU Session estabelecida;
+- Interface `uesimtun0` criada;
+- Endereço IP atribuído ao UE.
 
 Com esses resultados, o ambiente estará completamente operacional e pronto para os testes de conectividade, captura de tráfego e validação das Network Slices.
