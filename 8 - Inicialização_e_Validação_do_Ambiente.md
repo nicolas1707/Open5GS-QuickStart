@@ -347,8 +347,8 @@ A etapa é considerada concluída com sucesso quando todos os itens abaixo forem
 - gNodeB conectado ao AMF (NG Setup Successful);
 - UE registrando-se com sucesso;
 - Autenticação 5G-AKA concluída;
-- PDU Session estabelecida;
-- Interface `uesimtun0` criada;
-- Endereço IP atribuído ao UE.
+- PDU Sessions estabelecidas (3 sessões);
+- Interfaces `uesimtun0`, `uesimtun1` e `uesimtun2` criadas e ativas no kernel Linux
+- Endereços IP estáticos (10.45.0.5, .6 e .7) atribuídos corretamente a cada túnel pelo UPF.
 
 Com esses resultados, o ambiente estará completamente operacional e pronto para os testes de conectividade, captura de tráfego e validação das Network Slices.
