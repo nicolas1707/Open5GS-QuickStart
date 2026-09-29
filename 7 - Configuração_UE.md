@@ -350,7 +350,7 @@ Após o registro bem-sucedido, o UE solicitará automaticamente três PDU Sessio
 | emergency | 2 | URLLC |
 | iot | 3 | mMTC |
 
-O UERANSIM suporta múltiplas PDU Sessions (até 15) por UE, desde que o Core esteja configurado para aceitá-las. 
+Cada sessão IPv4 bem-sucedida forçará o UERANSIM a criar uma interface virtual de rede no kernel do Linux. Neste cenário, subirão simultaneamente as interfaces `uesimtun0`, `uesimtun1` e `uesimtun2`, cada uma com um IP fornecido pelo Open5GS.
 
 ---
 
