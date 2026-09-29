@@ -231,7 +231,7 @@ Essa interface transporta o tráfego dos usuários utilizando **GTP-U**.
 
 ### Impacto no processo
 
-Após a criação das PDU Sessions, será através desse endereço que o UPF encaminhará os pacotes destinados ao UE.
+Após a criação das PDU Sessions, será através deste endereço que os túneis uesimtun receberão os pacotes encaminhados pelo UPF. É vital que este endereço consiga alcançar o IP definido na interface do UPF do Open5GS. Neste laboratório local, o loopback cumpriu essa função na perfeição.
 
 ---
 
