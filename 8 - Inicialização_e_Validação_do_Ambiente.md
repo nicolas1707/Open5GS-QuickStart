@@ -341,7 +341,7 @@ Esse endereço foi atribuído pelo **SMF**, sendo utilizado posteriormente pelo 
 
 # Critérios de Sucesso
 
-A etapa é considerada concluída com sucesso quando todos os itens abaixo forem atendidos:
+A configuração é considerada concluída com sucesso quando todos os itens abaixo forem atendidos:
 
 - Open5GS em execução;
 - gNodeB conectado ao AMF (NG Setup Successful);
@@ -351,4 +351,4 @@ A etapa é considerada concluída com sucesso quando todos os itens abaixo forem
 - Interfaces `uesimtun0`, `uesimtun1` e `uesimtun2` criadas e ativas no kernel Linux
 - Endereços IP estáticos (10.45.0.5, .6 e .7) atribuídos corretamente a cada túnel pelo UPF.
 
-Com esses resultados, o ambiente estará completamente operacional e pronto para os testes de conectividade, captura de tráfego e validação das Network Slices.
+Com esses resultados, o ambiente estará completamente operacional e pronto para realizar testes e simulações.
