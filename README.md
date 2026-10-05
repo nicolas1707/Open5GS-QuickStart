@@ -1,4 +1,4 @@
-# Open5GS Quickstart - Laboratório de Core 5G Standalone
+# Laboratório de Core 5G Standalone
 
 Repositório dedicado ao estudo, documentação e implementação prática de uma rede **5G Standalone (5G SA)** utilizando **Open5GS** e **UERANSIM**, com foco na compreensão da arquitetura do Core 5G, configuração do ambiente e validação de funcionalidades como **Network Slicing** e múltiplas **PDU Sessions**. O conteúdo foi desenvolvido a partir do [Quickstart oficial do Open5GS](https://open5gs.org/open5gs/docs/guide/01-quickstart/), sendo expandido com explicações detalhadas sobre cada etapa, conceitos da arquitetura 5G e procedimentos realizados durante os experimentos.
 
