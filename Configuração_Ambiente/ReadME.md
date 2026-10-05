@@ -72,5 +72,3 @@ Cada sessão resulta na criação de uma interface TUN independente no sistema o
 - Interface Web: Open5GS WebUI
 - Simulador RAN: UERANSIM
 - Arquitetura: 5G Standalone (SA)
-
----
