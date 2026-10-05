@@ -1,58 +1,82 @@
-# Conteúdo do Repositório
+# Configuração do Ambiente
+
+Esta seção reúne toda a documentação necessária para a implantação de um ambiente funcional de uma rede **5G Standalone (5G SA)** utilizando **Open5GS** e **UERANSIM**.
+
+O objetivo é documentar, de forma detalhada, todas as etapas realizadas durante a construção do laboratório, explicando não apenas **como** executar cada procedimento, mas também **o funcionamento interno** dos componentes envolvidos na arquitetura do Core 5G.
+
+Toda a documentação foi desenvolvida com base no **Quickstart oficial do Open5GS**, sendo expandida com explicações técnicas, diagramas, conceitos de redes móveis e observações obtidas durante a implementação prática do ambiente.
+
+---
+
+# Conteúdo
 
 ```text
 Configuração_Ambiente/
 │
-├── 1 - Arquitetura_Open5GS.md
-├── 2 - Instalação_Open5GS.md
-├── 3 - Instalação_WebUI.md
+├── 1 - Introdução.md
+├── 2 - Instalação.md
+├── 3 - Instalação_Interface.md
 ├── 4 - Cadastro_Assinantes_Slices.md
-├── 5 - Configuração_Core_5G.md
-├── 6 - Instalação_UERANSIM.md
+├── 5 - Instalação_UERANSIM.md
+├── 6 - Configuração_gNodeB.md
 ├── 7 - Configuração_UE.md
-└── 8 - Inicialização_e_Validação.md
+├── 8 - Inicialização_e_Validação_do_Ambiente.md
+└── ReadME.md
 ```
 
-Cada documento foi elaborado de forma incremental, explicando não apenas **como** executar cada procedimento, mas também **o que acontece internamente** em cada etapa do funcionamento da rede 5G.
+Os documentos foram organizados em ordem cronológica, acompanhando o fluxo natural de implantação do ambiente.
 
 ---
 
-# Principais Tópicos Abordados
+# Etapas Documentadas
+
+| Etapa | Descrição |
+|--------|-----------|
+| **1** | Introdução à arquitetura do Open5GS e do Core 5G |
+| **2** | Instalação do Open5GS e de suas dependências |
+| **3** | Instalação da WebUI e configuração do gerenciamento de assinantes |
+| **4** | Cadastro de assinantes e configuração de Network Slices |
+| **5** | Instalação e compilação do UERANSIM |
+| **6** | Configuração do gNodeB |
+| **7** | Configuração do UE |
+| **8** | Inicialização, registro e validação do ambiente |
+
+---
+
+# Principais Conceitos Abordados
 
 ## Arquitetura 5G SA
 
 - Service Based Architecture (SBA)
-- Control Plane
-- User Plane
-- AMF
-- SMF
-- UPF
-- UDM
-- UDR
-- AUSF
-- NRF
-- PCF
-- NSSF
+- Plano de Controle (Control Plane)
+- Plano de Usuário (User Plane)
+- Network Functions (AMF, SMF, UPF, UDM, UDR, AUSF, NRF, PCF e NSSF)
 
-## Configuração do Core
+---
 
-- Instalação via Package Manager
+## Implantação do Core 5G
+
+- Instalação do Open5GS
 - Configuração dos serviços
+- MongoDB
+- WebUI
 - Provisionamento de assinantes
-- Configuração da WebUI
-- Gerenciamento do banco MongoDB
+
+---
 
 ## Rede de Acesso (RAN)
 
+- Instalação do UERANSIM
 - Configuração do gNodeB
 - Configuração do UE
-- Interfaces NGAP
-- Interface GTP-U
-- Simulação utilizando UERANSIM
+- Interface NGAP (N2)
+- Interface GTP-U (N3)
+
+---
 
 ## Network Slicing
 
-O laboratório implementa um cenário de **Network Slicing**, no qual um único equipamento de usuário estabelece simultaneamente três sessões PDU independentes:
+O ambiente documenta a implementação de um cenário de **Network Slicing**, no qual um único UE estabelece simultaneamente três **PDU Sessions**, cada uma associada a uma fatia lógica distinta da rede.
 
 | Slice | SST | DNN |
 |--------|----:|-----|
@@ -60,15 +84,31 @@ O laboratório implementa um cenário de **Network Slicing**, no qual um único 
 | URLLC | 2 | emergency |
 | mMTC | 3 | iot |
 
-Cada sessão resulta na criação de uma interface TUN independente no sistema operacional.
+Cada sessão resulta na criação de uma interface virtual independente (`uesimtun`), permitindo a separação do tráfego entre as diferentes fatias de rede.
 
 ---
 
 # Ambiente Utilizado
 
-- Sistema Operacional: Ubuntu 22.04 LTS
-- Core: Open5GS
-- Banco de Dados: MongoDB
-- Interface Web: Open5GS WebUI
-- Simulador RAN: UERANSIM
-- Arquitetura: 5G Standalone (SA)
+- **Sistema Operacional:** Ubuntu 22.04 LTS
+- **Core 5G:** Open5GS
+- **Banco de Dados:** MongoDB
+- **Interface Web:** Open5GS WebUI
+- **Simulador RAN:** UERANSIM
+- **Arquitetura:** 5G Standalone (SA)
+
+---
+
+# Objetivo da Documentação
+
+Esta documentação possui caráter **acadêmico e educacional**, buscando explicar o funcionamento de uma rede 5G Standalone de maneira incremental.
+
+Além da reprodução do ambiente proposto pelo Quickstart oficial, foram adicionadas explicações detalhadas sobre:
+
+- arquitetura do Core 5G;
+- funções de rede (Network Functions);
+- autenticação de assinantes;
+- criação de PDU Sessions;
+- Network Slicing;
+- integração entre Open5GS e UERANSIM;
+- validação prática do ambiente implementado.
