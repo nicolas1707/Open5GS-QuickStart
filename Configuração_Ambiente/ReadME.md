@@ -8,27 +8,8 @@ Toda a documentação foi desenvolvida com base no **Quickstart oficial do Open5
 
 ---
 
-# Conteúdo
-
-```text
-Configuração_Ambiente/
-│
-├── 1 - Introdução.md
-├── 2 - Instalação.md
-├── 3 - Instalação_Interface.md
-├── 4 - Cadastro_Assinantes_Slices.md
-├── 5 - Instalação_UERANSIM.md
-├── 6 - Configuração_gNodeB.md
-├── 7 - Configuração_UE.md
-├── 8 - Inicialização_e_Validação_do_Ambiente.md
-└── ReadME.md
-```
-
-Os documentos foram organizados em ordem cronológica, acompanhando o fluxo natural de implantação do ambiente.
-
----
-
 # Etapas Documentadas
+Os documentos foram organizados em ordem cronológica, acompanhando o fluxo natural de implantação do ambiente.
 
 | Etapa | Descrição |
 |--------|-----------|
@@ -100,9 +81,6 @@ Cada sessão resulta na criação de uma interface virtual independente (`uesimt
 ---
 
 # Objetivo da Documentação
-
-Esta documentação possui caráter **acadêmico e educacional**, buscando explicar o funcionamento de uma rede 5G Standalone de maneira incremental.
-
 Além da reprodução do ambiente proposto pelo Quickstart oficial, foram adicionadas explicações detalhadas sobre:
 
 - arquitetura do Core 5G;
