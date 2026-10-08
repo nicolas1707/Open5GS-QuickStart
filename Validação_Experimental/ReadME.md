@@ -15,23 +15,6 @@ Cada experimento documenta detalhadamente:
 
 ---
 
-# Etapas Documentadas
-
-Os experimentos foram organizados de forma progressiva, iniciando pela validação da comunicação básica e evoluindo para cenários de desempenho e utilização simultânea de múltiplas fatias de rede.
-
-| Etapa | Descrição |
-|--------|-----------|
-| **1** | Testes de conectividade e validação do ambiente |
-| **2** | Testes de desempenho TCP |
-| **3** | Testes de desempenho UDP |
-| **4** | Validação da Slice eMBB |
-| **5** | Validação da Slice URLLC |
-| **6** | Validação da Slice mMTC |
-| **7** | Validação de múltiplas Slices simultâneas |
-| **8** | Análise comparativa dos resultados obtidos |
-
----
-
 # Principais Testes Realizados
 
 ## Conectividade
