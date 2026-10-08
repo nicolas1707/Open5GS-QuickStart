@@ -49,3 +49,9 @@ Este material destina-se a:
 Este repositório possui finalidade exclusivamente educacional e acadêmica.
 
 Toda a documentação foi produzida para auxiliar no estudo da arquitetura do **5G Standalone**, utilizando ferramentas de código aberto e expandindo os conceitos apresentados na documentação oficial do Open5GS.
+
+---
+# Referências
+
+* [Open5GS — Quickstart oficial](https://open5gs.org/open5gs/docs/guide/01-quickstart/)
+* [UERANSIM — Repositório oficial](https://github.com/aligungr/UERANSIM)
